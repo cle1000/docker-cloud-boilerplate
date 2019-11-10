@@ -32,11 +32,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.entrypoints=http"
-      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.{your-server}.at`)"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.{your-domain}`)"
       - "traefik.http.middlewares.nextcloud-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-https-redirect"
       - "traefik.http.routers.nextcloud-secure.entrypoints=https"
-      - "traefik.http.routers.nextcloud-secure.rule=Host(`nextcloud.{your-server}.at`)"
+      - "traefik.http.routers.nextcloud-secure.rule=Host(`nextcloud.{your-domain}`)"
       - "traefik.http.routers.nextcloud-secure.tls=true"
       - "traefik.http.routers.nextcloud-secure.tls.certresolver=http"
       - "traefik.http.routers.nextcloud-secure.service=nextcloud"

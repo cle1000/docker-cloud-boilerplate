@@ -1,1 +1,1 @@
-scp -r ./* {your-username}@{your-server}:/{your-username}/
+scp -r ./* {your-username}@{your-domain}:/{your-username}/
