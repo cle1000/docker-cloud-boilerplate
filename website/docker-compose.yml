@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  website:
+    image: nginx:alpine
+
+    volumes:
+      - .:/usr/share/nginx/html
+
+    restart: always
+    networks:
+      - proxy
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.website.entrypoints=http"
+      - "traefik.http.routers.website.rule=Host(`{your-server}`)"
+      - "traefik.http.middlewares.website-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.website.middlewares=website-https-redirect"
+      - "traefik.http.routers.website-secure.entrypoints=https"
+      - "traefik.http.routers.website-secure.rule=Host(`{your-server}`)"
+      - "traefik.http.routers.website-secure.tls=true"
+      - "traefik.http.routers.website-secure.tls.certresolver=http"
+      - "traefik.http.routers.website-secure.service=website"
+      - "traefik.http.services.website.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true
